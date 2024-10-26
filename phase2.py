@@ -35,7 +35,9 @@ def save_to_csv(data, filename):
             dict_writer.writerows(data)
 
 def main():
-    category_url = 'https://books.toscrape.com/catalogue/category/books/nonfiction_13/index.html'
+    # category_url = 'https://books.toscrape.com/catalogue/category/books/nonfiction_13/index.html'
+    # category_url = 'https://books.toscrape.com/catalogue/category/books/travel_2/index.html'
+    category_url = 'https://books.toscrape.com/catalogue/category/books/classics_6/index.html'
     
     print("Fetching book URLs...")
     book_urls = get_book_urls(category_url)
