@@ -48,3 +48,15 @@ Enfin, étendez votre travail en écrivant un script qui consulte le site de **O
 
 Je propose d'extraire la list des category a partir de la page d'accueil:
 https://books.toscrape.com/index.html
+
+# Phase 5
+
+Maintenant que vous avez réussi à collecter les données des prix des livres de **OldBooks Finder**, il est temps d'explorer ces données pour en tirer des insights. Pour cela, vous allez créer des visualisations avec **Matplotlib** afin de comprendre comment se répartissent les prix des livres d'occasion chez ce concurrent.
+
+Instructions supplémentaires :
+1. Histogramme des prix :
+Créez un diagramme circulaire montrant la répartition des livres par catégorie spécifique (Le pourcentage de livres par catégories).
+2. Graphique en barres pour les catégories de livres :
+Créez un graphique en barres qui montre le prix moyen des livres pour chaque catégorie de livres collectée. Cela permettra de visualiser quelles catégories de livres ont les prix les plus élevés et les plus bas.
+
+On peut essayer de  créer des graphiques avec ReportLab, c’est également le module que nous utiliserons pour générer le PDF final en Phase 6: https://www.reportlab.com/chartgallery/pie/
