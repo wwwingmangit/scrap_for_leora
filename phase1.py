@@ -1,13 +1,5 @@
-import csv
 import json
-from scrape import scrape_book_page
-
-def save_to_csv(data, filename):
-    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = data.keys()
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerow(data)
+from scrape import scrape_book_page, save_to_csv
 
 # URL of the book page
 url = "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
@@ -22,7 +14,7 @@ if result:
 
 # Save to CSV if data was successfully scraped
 if result:
-    save_to_csv(result, 'csv/phase1.csv')
-    print("Data has been saved to book_data.csv")
+    save_to_csv([result], 'csv/phase1.csv')
+    print("Data has been saved to csv/phase1.csv")
 else:
     print("Failed to scrape the book data.")
