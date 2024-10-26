@@ -60,3 +60,19 @@ Créez un diagramme circulaire montrant la répartition des livres par catégori
 Créez un graphique en barres qui montre le prix moyen des livres pour chaque catégorie de livres collectée. Cela permettra de visualiser quelles catégories de livres ont les prix les plus élevés et les plus bas.
 
 On peut essayer de  créer des graphiques avec ReportLab, c’est également le module que nous utiliserons pour générer le PDF final en Phase 6: https://www.reportlab.com/chartgallery/pie/
+
+# **Phase 6 : Génération du rapport PDF**
+
+Après avoir généré des visualisations avec **Matplotlib**, vous pouvez maintenant les intégrer dans un rapport PDF contenant des informations supplémentaires pour une présentation professionnelle.
+
+Instructions supplémentaires :
+1.Création d'un PDF :Utilisez une bibliothèque telle que reportlab pour générer un fichier PDF intitulé rapport_prix_livres.pdf.
+2.Inclusion des graphiques :
+-Diagramme circulaire : Intégrez le diagramme circulaire montrant la répartition des livres par catégorie.
+- Graphique en barres : Intégrez le graphique en barres illustrant le prix moyen des livres par catégorie.
+3.Texte et informations supplémentaires :
+- Ajoutez un titre pour le rapport : "Rapport des prix des livres d'occasion".
+- Insérez une courte description avant chaque graphique, expliquant ce que montre la visualisation.
+- Affichez également quelques statistiques clés, comme le prix moyen global des livres, la catégorie la plus représentée, et la catégorie la plus chère.
+4.Présentation soignée :
+- Assurez-vous que les graphiques et le texte sont bien présentés et alignés dans le PDF pour une apparence propre et professionnelle.
