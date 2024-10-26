@@ -41,3 +41,10 @@ https://books.toscrape.com/catalogue/category/books/nonfiction_13/page-6.html
 # Phase 3
 
 Ensuite, prolongez votre travail existant pour **télécharger et enregistrer l'image** de chaque livre que vous consultez sur le site, et l’enregistrer dans un dossier (il existe des modules python pour créer et manipuler des dossiers). Pensez à nommer l’image de manière explicite.
+
+# Phase 4
+
+Enfin, étendez votre travail en écrivant un script qui consulte le site de **OldBooks Finder**, extrait toutes les **catégories de livres disponibles**, puis extrait les informations produit de tous les livres appartenant à toutes les différentes catégories. Vous devrez écrire les données dans un fichier CSV **distinct pour chaque catégorie** de livres. Pensez à également récupérer toutes les images et les enregistrer dans des dossiers séparés, et explicitement nommés.
+
+Je propose d'extraire la list des category a partir de la page d'accueil:
+https://books.toscrape.com/index.html

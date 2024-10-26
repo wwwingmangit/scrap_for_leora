@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import csv
 import json  # Used only for pretty-printing the result
 from urllib.parse import urljoin
+import os
+import re
 
 def scrape_book_page(url):
     """
@@ -133,3 +135,53 @@ def get_book_urls(category_url):
     
     print(f"Total books found: {len(book_urls)}")
     return book_urls
+
+def get_categories(url):
+    """
+    Extracts the list of book categories from the home page.
+
+    Args:
+    url (str): The URL of the home page.
+
+    Returns:
+    list of tuple: A list of (category_name, category_url) tuples.
+    """
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        categories = []
+        category_list = soup.select('ul.nav-list > li > ul > li > a')
+        
+        for category in category_list:
+            category_name = category.text.strip()
+            category_url = urljoin(url, category['href'])
+            categories.append((category_name, category_url))
+        
+        return categories
+    except requests.RequestException as e:
+        print(f"An error occurred while fetching the categories: {e}")
+        return []
+
+def download_image(url, destination_folder, filename):
+    """Download and save an image from a given URL."""
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        
+        # Create the destination folder if it doesn't exist
+        os.makedirs(destination_folder, exist_ok=True)
+        
+        # Clean the filename
+        clean_filename = re.sub(r'[\\/*?:"<>|]', "_", filename)
+        
+        # Save the image
+        file_path = os.path.join(destination_folder, clean_filename)
+        with open(file_path, 'wb') as file:
+            file.write(response.content)
+        print(f"    Image saved: {file_path}")
+        return True
+    except requests.RequestException as e:
+        print(f"    Failed to download image: {e}")
+        return False
