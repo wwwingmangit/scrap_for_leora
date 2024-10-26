@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 import json  # Used only for pretty-printing the result
+from urllib.parse import urljoin
 
 def scrape_book_page(url):
     """
@@ -77,9 +78,58 @@ def scrape_book_page(url):
         return None
 
 def save_to_csv(data, filename):
+    """
+    Saves the given data to a CSV file.
+
+    Args:
+    data (list of dict): The data to be saved, where each dict represents a row.
+    filename (str): The name of the file to save the data to.
+    """
     if data:
         keys = data[0].keys()
         with open(filename, 'w', newline='', encoding='utf-8') as output_file:
             dict_writer = csv.DictWriter(output_file, keys)
             dict_writer.writeheader()
             dict_writer.writerows(data)
+
+def get_book_urls(category_url):
+    """
+    Retrieves all book URLs from a given category page, including pagination.
+
+    This function scrapes the initial category page and any subsequent pages,
+    collecting URLs for all books in the category.
+
+    Args:
+    category_url (str): The URL of the category page to start scraping from.
+
+    Returns:
+    list of str: A list of URLs, each pointing to a specific book's page.
+
+    Raises:
+    requests.RequestException: If there's an error in making the HTTP request.
+    """
+    book_urls = []
+    while category_url:
+        print(f"Fetching page: {category_url}")
+        try:
+            response = requests.get(category_url)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Extract book URLs from the current page
+            for book in soup.select('article.product_pod h3 a'):
+                book_url = urljoin(category_url, book['href'])
+                book_urls.append(book_url)
+            
+            # Check for next page
+            next_button = soup.select_one('li.next a')
+            if next_button:
+                category_url = urljoin(category_url, next_button['href'])
+            else:
+                category_url = None
+        except requests.RequestException as e:
+            print(f"An error occurred while fetching {category_url}: {e}")
+            category_url = None
+    
+    print(f"Total books found: {len(book_urls)}")
+    return book_urls

@@ -1,4 +1,5 @@
 import json
+import os
 from scrape import scrape_book_page, save_to_csv
 
 # URL of the book page
@@ -11,6 +12,9 @@ result = scrape_book_page(url)
 if result:
     print("Scraped data:")
     print(json.dumps(result, indent=2, ensure_ascii=False))
+
+# Create the csv directory if it doesn't exist
+os.makedirs('csv', exist_ok=True)
 
 # Save to CSV if data was successfully scraped
 if result:

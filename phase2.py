@@ -1,29 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
-from scrape import scrape_book_page, save_to_csv
+from scrape import scrape_book_page, save_to_csv, get_book_urls
 from urllib.parse import urljoin
-
-def get_book_urls(category_url):
-    book_urls = []
-    while category_url:
-        print(f"Fetching page: {category_url}")
-        response = requests.get(category_url)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Extract book URLs from the current page
-        for book in soup.select('article.product_pod h3 a'):
-            book_url = urljoin(category_url, book['href'])
-            book_urls.append(book_url)
-        
-        # Check for next page
-        next_button = soup.select_one('li.next a')
-        if next_button:
-            category_url = urljoin(category_url, next_button['href'])
-        else:
-            category_url = None
-    
-    print(f"Total books found: {len(book_urls)}")
-    return book_urls
+import os
 
 def main():
     # category_url = 'https://books.toscrape.com/catalogue/category/books/nonfiction_13/index.html'
@@ -50,6 +29,10 @@ def main():
         # Extract category name from the URL
         category_name = category_url.split('/')[-2].split('_')[0]
         output_file = f'csv/phase2_{category_name}.csv'
+        
+        # Create the 'csv' directory if it doesn't exist
+        os.makedirs('csv', exist_ok=True)
+        
         save_to_csv(all_book_data, output_file)
         print(f"Scraped {len(all_book_data)} books. Data saved to {output_file}")
     else:
