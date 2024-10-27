@@ -194,3 +194,5 @@ Thumbs.db
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+/charts/
